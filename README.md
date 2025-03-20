@@ -1,1 +1,1 @@
-To run the app locally, I installed postgresql server
+To run the app locally, I installed postgresql server on my machine
