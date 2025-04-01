@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uk.michaelelison.person.dto.SeniorPersonDTO;
 import uk.michaelelison.person.dto.YoungerPersonDTO;
 import uk.michaelelison.person.exception.ResourceNotFoundException;
@@ -30,6 +31,7 @@ public class PersonServiceImplementation implements PersonService {
 
     // Creating new people
 
+    @Transactional
     @Override
     public SeniorPersonDTO saveSeniorPerson(SeniorPersonDTO seniorPersonDTO) {
 
@@ -47,6 +49,7 @@ public class PersonServiceImplementation implements PersonService {
         return savedSeniorPersonDTO;
     }
 
+    @Transactional
     @Override
     public YoungerPersonDTO saveYoungerPerson(YoungerPersonDTO youngerPersonDTO) {
 
@@ -67,23 +70,26 @@ public class PersonServiceImplementation implements PersonService {
 
 
     // Get people
-
+    @Transactional(readOnly = true)
     @Override
     public List<SeniorPersonDTO> getAllSeniorPeople() {
         return personRepository.findAll().stream().filter(a -> a.getAgeGroup()).map(a -> modelMapper.map(a, SeniorPersonDTO.class)).toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<YoungerPersonDTO> getAllYoungerPeople() {
         return personRepository.findAll().stream().filter(a -> !a.getAgeGroup()).map(a -> modelMapper.map(a, YoungerPersonDTO.class)).toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Person> getAllPeople() {
 
         return personRepository.findAll().stream().map(a -> modelMapper.map(a, Person.class)).toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Person getPersonById(Long id) {
         return personRepository.findById(id).stream().map(a -> modelMapper.map(a, Person.class)).findFirst().orElseThrow(() -> new ResourceNotFoundException("Person", "Id", id));
@@ -92,6 +98,7 @@ public class PersonServiceImplementation implements PersonService {
 
     // Update people
 
+    @Transactional
     @Override
     public SeniorPersonDTO updateSeniorPerson(SeniorPersonDTO seniorPersonDTO, Long id) {
 
@@ -111,6 +118,7 @@ public class PersonServiceImplementation implements PersonService {
         return savedSeniorPersonDTO;
     }
 
+    @Transactional
     @Override
     public YoungerPersonDTO updateYoungerPerson(YoungerPersonDTO youngerPersonDTO, Long id) {
 
@@ -133,6 +141,7 @@ public class PersonServiceImplementation implements PersonService {
 
     // Delete people
 
+    @Transactional
     @Override
     public void deletePersonById(Long id) {
 
