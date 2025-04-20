@@ -11,8 +11,6 @@ public class ModelMapperConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-//        org.modelmapper.config.Configuration configuration = modelMapper.getConfiguration();
-//        configuration.setPropertyCondition(Conditions.isNotNull());
         return modelMapper;
     }
 }

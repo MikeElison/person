@@ -1,5 +1,6 @@
 package uk.michaelelison.person.service;
 
+import uk.michaelelison.person.dto.PersonMainDTO;
 import uk.michaelelison.person.dto.SeniorPersonDTO;
 import uk.michaelelison.person.dto.YoungerPersonDTO;
 import uk.michaelelison.person.model.Person;
@@ -7,6 +8,9 @@ import uk.michaelelison.person.model.Person;
 import java.util.List;
 
 public interface PersonService {
+
+    // create
+    PersonMainDTO createPerson(PersonMainDTO personMainDTO);
 
     SeniorPersonDTO saveSeniorPerson (SeniorPersonDTO seniorPersonDTO);
     YoungerPersonDTO saveYoungerPerson (YoungerPersonDTO youngerPersonDTO);
